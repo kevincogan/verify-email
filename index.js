@@ -21,7 +21,7 @@ exports.handler = async (data) => {
     // Note all Cages have the evervault SDK automatically injected into their global scope.
     return {
       message: `${isValid}`,
-      name: await evervault.encrypt(data.email),
+      name: data.email,
     };
   } else {
     console.debug('An empty name has arrived into the Cage.');
