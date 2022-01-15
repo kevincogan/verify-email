@@ -7,14 +7,21 @@
 // you did when you passed it into `evervault.run`.
 exports.handler = async (data) => {
   // Check if the data sent into the Cage included the `name` key
-  if (data.name && typeof data.name === "string") {
-    console.debug(`A name of length ${data.name.length} has arrived into the Cage.`);
+  if (data.email && typeof data.email === "string") {
+    
+    function validateEmail(email) 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+    
+    const isValid = validateEmail(data.email);
 
     // Process the decrypted name value, and re-encrypt the original name using the globally available evervault package.
     // Note all Cages have the evervault SDK automatically injected into their global scope.
     return {
-      message: `Hello from a Cage! It seems you have ${data.name.length} letters in your name`,
-      name: await evervault.encrypt(data.name),
+      message: `${isValid}`,
+      name: await evervault.encrypt(data.email),
     };
   } else {
     console.debug('An empty name has arrived into the Cage.');
